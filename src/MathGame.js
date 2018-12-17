@@ -20,6 +20,24 @@ class MathGame extends Component {
     return [value1, value2, value3, proposedAnswer];
   }
 
+  handleAnswer = event => {
+    const isAnswerCorrect = this.evaluateAnswer(event.target.name);
+    
+    const values = this.getNewQuestion();
+    this.updateState(values);
+    
+    this.props.handleAnswer(isAnswerCorrect);
+  }
+
+  updateState = newValuesArray => {
+    this.setState(currState => ({
+      value1: newValuesArray[0],
+      value2: newValuesArray[1],
+      value3: newValuesArray[2],
+      proposedAnswer: newValuesArray[3],
+    }));
+  }
+
   evaluateAnswer = (givenAnswer) => {
     const { value1, value2, value3, proposedAnswer } = this.state;
     const corrAnswer = value1 + value2 + value3;
@@ -37,8 +55,8 @@ class MathGame extends Component {
         <div className="equation">
           <p className="text">{`${value1} + ${value2} + ${value3} = ${proposedAnswer}`}</p>
         </div>
-        <button>True</button>
-        <button>False</button>
+        <button onClick={this.handleAnswer} name="true">True</button>
+        <button onClick={this.handleAnswer} name="false">False</button>
       </div>
     )
   }
