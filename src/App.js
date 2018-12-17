@@ -10,6 +10,24 @@ const numQuestions = 0;
 const numCorrect = 0;
 
 class App extends Component {
+  state = {
+    correctAnswers: 0,
+    numQuestions: 0
+  };
+
+  handleAnswer = (correctFlag) => {
+    if (correctFlag) {
+      this.setState((currentState) => ({
+        correctAnswers: currentState.correctAnswers + 1,
+        numQuestions: currentState.numQuestions + 1
+      }));
+    } else {
+       this.setState((currentState) => ({
+          numQuestions: currentState.numQuestions + 1
+       }));
+    }
+  }
+
   render() {
     return (
       <div className="App">
